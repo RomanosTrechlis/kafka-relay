@@ -28,11 +28,7 @@ external applications (in light blue) by the relay services (in light red).
 
 ## Build
 
-Build **kafka-relay** using gradle.
-
-![img.png](docs/img/gradle.png)
-
-Or run the command `gradlew build`.
+Run the command `gradlew build`.
 
 ## Deployment
 
@@ -61,57 +57,9 @@ subgraph ClusterB[Apache Kafka Cluster B: clusterB]
 end
 ```
 
-## Local demo
-
-Run the following command to produce a message to Cluster B.
-
-```
- sh kafka-console-producer.sh --bootstrap-server localhost:10003,localhost:10004 --topic topic
-```
-
-This creates a prompt to write the message:
-
-![img.png](docs/img/kafka-producer-prompt.png)
-
-And the following line in the kafka broker appears:
-
-![img.png](docs/img/kafka-broker-log.png)
-
-We then write a message to the prompt.
-
-The relay listen to the topic and after transforming the message it sends it to
-the other cluster. The new topic is created if it doesn't exist.
-
-![img.png](docs/img/kafdrop_main.png)
-
-Navigating into kafdrop topic we can read the message.
-
-![img.png](docs/img/kafdrop_inner.png)
-
-We can also check the relay's logs.
-
-![img.png](docs/img/relay-logs.png)
-
-## Configuration
-
-The following properties must be filled in order for the application to run correctly.
-
-```properties
-kafka.clusterA.bootstrapAddress=kafka-clusterA
-kafka.clusterA.listen.topic=topic
-kafka.clusterA.send.topic=sendA
-kafka.clusterA.groupId=test
-kafka.clusterB.bootstrapAddress=kafka-clusterB
-kafka.clusterB.listen.topic=topic
-kafka.clusterB.send.topic=sendB
-kafka.clusterB.groupId=test
-```
-
-Reference also to [docker-compose.yml](docker-compose.yml)
-
 ## Transform
 
-The API exposes an interface `ITransformKafkaMessage` with two methods. 
+The API exposes an interface `ITransformKafkaMessage` with two methods.
 
 + String transformToA(String messageFromB);
 + String transformToB(String messageFromA);
@@ -120,7 +68,6 @@ The `DefaultKafkaMessageTransformer` returns the message without any actual tran
 
 For a specific transformation, implement the `ITransformKafkaMessage` interface.
 
-## Help
+## Example Usage
 
-[Help.md](docs/HELP.md)
-
+Check the example [here](https://github.com/RomanosTrechlis/kafka-relay-example).
