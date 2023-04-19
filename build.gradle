@@ -56,7 +56,7 @@ publishing {
 	}
 	publications {
 		gpr(MavenPublication) {
-			from(components.java)
+			artifact jar
 		}
 	}
 }
