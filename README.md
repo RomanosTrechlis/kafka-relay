@@ -1,7 +1,7 @@
 # kafka-relay
 
-**kafka-relay** is a spring-boot application that reads messages 
-from a kafka cluster and forwards it to another kafka cluster.
+**kafka-relay** is a java package that enable reading messages 
+from a kafka cluster and forwarding them to another kafka cluster.
 
 ```mermaid
 flowchart TD;
@@ -20,6 +20,11 @@ the main application and the integrations for third party applications.
 That way, the main application knows how to read messages from the kafka cluster A, as well as their format.
 The **kafka-relay** is responsible to read integration specific messages from cluster B, transform them in 
 the format of the main application and forward them to the cluster A.
+
+In the following diagram we can see that the Main Application (in light green) is seperated from the 
+external applications (in light blue) by the relay services (in light red).
+
+![](docs/diagrams/arch-overview.svg)
 
 ## Build
 

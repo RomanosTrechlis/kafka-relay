@@ -1,0 +1,61 @@
+@startuml
+rectangle "    User\n<img:../assets/icons8-laptop-computer-64.png{scale=1}>" as laptopMain
+
+rectangle "Main Application" {
+    rectangle "Main Application Internal" as ma #lightgreen {
+        component "Main application" as main
+        queue "<img:https://kafka.apache.org/logos/kafka_logo--simple.png{scale=0.75}>" as kafkaMain
+
+        main <.d.> kafkaMain: C/P
+    }
+
+    laptopMain -d-> main
+
+    rectangle "Peripheral Services" as ps #ff1f1f {
+        together {
+            component "Relay Service A" as relayA
+            component "Relay Service B" as relayB
+            component "Relay Service B" as relayC
+        }
+    }
+
+    relayA <.up.> kafkaMain: C/P
+    relayB <.up.> kafkaMain: C/P
+    relayC <.up.> kafkaMain: C/P
+}
+
+rectangle "External Application A" as eka #lightblue {
+    queue "<img:https://kafka.apache.org/logos/kafka_logo--simple.png{scale=0.75}>" as ekai
+    component "External Application" as extA
+
+    ekai <.d.> extA: C/P
+}
+
+rectangle "External Application B" as ekb #lightblue {
+    queue "<img:https://kafka.apache.org/logos/kafka_logo--simple.png{scale=0.75}>" as ekbi
+    component "External Application" as extB
+
+    ekbi <.d.> extB: C/P
+}
+
+rectangle "External Application C" as ekc #lightblue {
+    queue "<img:https://kafka.apache.org/logos/kafka_logo--simple.png{scale=0.75}>" as ekci
+    component "External Application" as extC
+
+    ekci <.d.> extC: C/P
+}
+
+relayA <.d.> ekai: C/P
+relayB <.d.> ekbi: C/P
+relayC <.d.> ekci: C/P
+
+rectangle "    User\n<img:../assets/icons8-laptop-computer-64.png{scale=1}>" as laptopExtA
+rectangle "    User\n<img:../assets/icons8-laptop-computer-64.png{scale=1}>" as laptopExtB
+rectangle "    User\n<img:../assets/icons8-laptop-computer-64.png{scale=1}>" as laptopExtC
+
+laptopExtA -u-> extA
+laptopExtB -u-> extB
+laptopExtC -u-> extC
+
+footer %filename() rendered with PlantUML version %version()\nRomanos Trechlis
+@enduml
