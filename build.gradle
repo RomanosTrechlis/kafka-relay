@@ -15,7 +15,7 @@ jar {
 }
 
 group = 'io.github.romanostrechlis'
-version = '0.0.1-SNAPSHOT'
+version = '0.1'
 sourceCompatibility = '17'
 targetCompatibility  = '17'
 
@@ -49,13 +49,19 @@ publishing {
 			name = "GitHubPackages"
 			url = "https://maven.pkg.github.com/RomanosTrechlis/kafka-relay"
 			credentials {
-				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-				password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+				username = project.findProperty("user") ?: System.getenv("USERNAME")
+				password = project.findProperty("key") ?: System.getenv("TOKEN")
 			}
 		}
 	}
 	publications {
 		gpr(MavenPublication) {
+			pom {
+				name = "kafka-relay"
+				description = "Reads messages from a kafka cluster and forwards it to another kafka cluster"
+				url = "https://github.com/RomanosTrechlis/kafka-relay"
+				packaging = "jar"
+			}
 			artifact jar
 		}
 	}
